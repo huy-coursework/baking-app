@@ -3,6 +3,12 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     defaultConfig {
         applicationId "com.huyvuong.udacity.bakingapp"
         minSdkVersion 18
@@ -11,6 +17,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -21,11 +28,34 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Android Support Library
     implementation 'com.android.support:appcompat-v7:26.0.1'
     implementation 'com.android.support:support-v4:26.0.1'
     implementation 'com.android.support:recyclerview-v7:26.0.1'
     implementation 'com.android.support:design:26.0.1'
+
+    // Butter Knife
+    implementation 'com.jakewharton:butterknife:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+
+    // Retrofit
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+
+    // RxJava + RxAndroid
+    implementation 'io.reactivex:rxjava:1.1.6'
+    implementation 'io.reactivex:rxandroid:1.2.1'
+
+    // Lightweight Stream API (LSA)
+    implementation 'com.annimon:stream:1.1.4'
+
+    // JUnit
     testImplementation 'junit:junit:4.12'
+
+    // Espresso
     androidTestImplementation 'com.android.support.test:runner:1.0.0'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.0'
 }
