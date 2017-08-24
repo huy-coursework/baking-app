@@ -20,23 +20,22 @@ import com.huyvuong.udacity.bakingapp.dummy.DummyContent;
 import java.util.List;
 
 /**
- * An activity representing a list of Recipes. This activity
- * has different presentations for handset and tablet-size devices. On
- * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link RecipeDetailActivity} representing
- * item details. On tablets, the activity presents the list of items and
- * item details side-by-side using two vertical panes.
+ * An activity representing a list of Recipes. This activity has different presentations for handset
+ * and tablet-size devices. On handsets, the activity presents a list of items, which when touched,
+ * lead to a {@link RecipeDetailActivity} representing item details. On tablets, the activity
+ * presents the list of items and item details side-by-side using two vertical panes.
  */
-public class RecipeListActivity extends AppCompatActivity {
+public class RecipeListActivity extends AppCompatActivity
+{
 
     /**
-     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-     * device.
+     * Whether or not the activity is in two-pane mode, i.e. running on a tablet device.
      */
     private boolean mTwoPane;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
 
@@ -53,43 +52,50 @@ public class RecipeListActivity extends AppCompatActivity {
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
 
-        if (findViewById(R.id.recipe_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w900dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
+        if (findViewById(R.id.recipe_detail_container) != null)
+        {
+            // The detail container view will be present only in the large-screen layouts
+            // (res/values-w900dp). If this view is present, then the activity should be in
+            // two-pane mode.
             mTwoPane = true;
         }
     }
 
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
+    private void setupRecyclerView(@NonNull RecyclerView recyclerView)
+    {
         recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS));
     }
 
     public class SimpleItemRecyclerViewAdapter
-            extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
+            extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>
+    {
 
         private final List<DummyContent.DummyItem> mValues;
 
-        public SimpleItemRecyclerViewAdapter(List<DummyContent.DummyItem> items) {
+        SimpleItemRecyclerViewAdapter(List<DummyContent.DummyItem> items)
+        {
             mValues = items;
         }
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+        {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.recipe_list_content, parent, false);
             return new ViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
+        public void onBindViewHolder(final ViewHolder holder, int position)
+        {
             holder.mItem = mValues.get(position);
             holder.mIdView.setText(mValues.get(position).id);
             holder.mContentView.setText(mValues.get(position).content);
 
-            holder.mView.setOnClickListener(view -> {
-                if (mTwoPane) {
+            holder.mView.setOnClickListener(view ->
+            {
+                if (mTwoPane)
+                {
                     Bundle arguments = new Bundle();
                     arguments.putString(RecipeDetailFragment.ARG_ITEM_ID, holder.mItem.id);
                     RecipeDetailFragment fragment = new RecipeDetailFragment();
@@ -97,28 +103,32 @@ public class RecipeListActivity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.recipe_detail_container, fragment)
                             .commit();
-                } else {
+                }
+                else
+                {
                     Context context = view.getContext();
                     Intent intent = new Intent(context, RecipeDetailActivity.class);
                     intent.putExtra(RecipeDetailFragment.ARG_ITEM_ID, holder.mItem.id);
-
                     context.startActivity(intent);
                 }
             });
         }
 
         @Override
-        public int getItemCount() {
+        public int getItemCount()
+        {
             return mValues.size();
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            public final View mView;
-            public final TextView mIdView;
-            public final TextView mContentView;
-            public DummyContent.DummyItem mItem;
+        public class ViewHolder extends RecyclerView.ViewHolder
+        {
+            final View mView;
+            final TextView mIdView;
+            final TextView mContentView;
+            DummyContent.DummyItem mItem;
 
-            public ViewHolder(View view) {
+            ViewHolder(View view)
+            {
                 super(view);
                 mView = view;
                 mIdView = (TextView) view.findViewById(R.id.id);
@@ -126,7 +136,8 @@ public class RecipeListActivity extends AppCompatActivity {
             }
 
             @Override
-            public String toString() {
+            public String toString()
+            {
                 return super.toString() + " '" + mContentView.getText() + "'";
             }
         }
