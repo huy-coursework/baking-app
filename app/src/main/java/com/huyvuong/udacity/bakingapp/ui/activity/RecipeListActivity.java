@@ -1,4 +1,4 @@
-package com.huyvuong.udacity.bakingapp;
+package com.huyvuong.udacity.bakingapp.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +15,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
+import com.huyvuong.udacity.bakingapp.R;
 import com.huyvuong.udacity.bakingapp.dummy.DummyContent;
+import com.huyvuong.udacity.bakingapp.model.transport.Recipe;
 
 import java.util.List;
 
@@ -27,7 +29,6 @@ import java.util.List;
  */
 public class RecipeListActivity extends AppCompatActivity
 {
-
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet device.
      */
@@ -63,16 +64,16 @@ public class RecipeListActivity extends AppCompatActivity
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView)
     {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.RECIPES));
     }
 
     public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>
     {
 
-        private final List<DummyContent.DummyItem> mValues;
+        private final List<Recipe> mValues;
 
-        SimpleItemRecyclerViewAdapter(List<DummyContent.DummyItem> items)
+        SimpleItemRecyclerViewAdapter(List<Recipe> items)
         {
             mValues = items;
         }
@@ -89,15 +90,17 @@ public class RecipeListActivity extends AppCompatActivity
         public void onBindViewHolder(final ViewHolder holder, int position)
         {
             holder.mItem = mValues.get(position);
-            holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
+            holder.mIdView.setText(String.valueOf(mValues.get(position).getId()));
+            holder.mContentView.setText(mValues.get(position).getName());
 
             holder.mView.setOnClickListener(view ->
             {
                 if (mTwoPane)
                 {
                     Bundle arguments = new Bundle();
-                    arguments.putString(RecipeDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+                    arguments.putLong(
+                            RecipeDetailFragment.ARG_ITEM_ID,
+                            holder.mItem.getId());
                     RecipeDetailFragment fragment = new RecipeDetailFragment();
                     fragment.setArguments(arguments);
                     getSupportFragmentManager().beginTransaction()
@@ -108,7 +111,9 @@ public class RecipeListActivity extends AppCompatActivity
                 {
                     Context context = view.getContext();
                     Intent intent = new Intent(context, RecipeDetailActivity.class);
-                    intent.putExtra(RecipeDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+                    intent.putExtra(
+                            RecipeDetailFragment.ARG_ITEM_ID,
+                            holder.mItem.getId());
                     context.startActivity(intent);
                 }
             });
@@ -125,7 +130,7 @@ public class RecipeListActivity extends AppCompatActivity
             final View mView;
             final TextView mIdView;
             final TextView mContentView;
-            DummyContent.DummyItem mItem;
+            Recipe mItem;
 
             ViewHolder(View view)
             {

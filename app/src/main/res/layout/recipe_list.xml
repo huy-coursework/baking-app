@@ -9,5 +9,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="com.huyvuong.udacity.bakingapp.RecipeListActivity"
+    tools:context="com.huyvuong.udacity.bakingapp.ui.activity.RecipeListActivity"
     tools:listitem="@layout/recipe_list_content" />

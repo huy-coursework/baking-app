@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.huyvuong.udacity.bakingapp.RecipeDetailActivity"
+    tools:context="com.huyvuong.udacity.bakingapp.ui.activity.RecipeDetailActivity"
     tools:ignore="MergeRootFrame">
 
     <android.support.design.widget.AppBarLayout
